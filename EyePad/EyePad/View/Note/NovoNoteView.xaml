@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="EyePad.View.Note.NovoNoteView">
+
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" x:Name="btnSalvar" 
+            Command="{Binding OnSaveNoteCMD}" 
+            CommandParameter="{Binding BindingContext, Source={x:Reference Name=rootNote}}" 
+        Order="Primary" Priority="1" />
+        
+        <ToolbarItem Text="Cancel" 
+        x:Name="btnCancelar" 
+        Command="{Binding OnSairCMD}" 
+        Order="Primary" Priority="2" />
+    </ContentPage.ToolbarItems>
+
+
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical"  
+            x:Name="rootNote"
+            BindingContext="{Binding Selecionado}">       
+            <StackLayout x:Name="stack0" WidthRequest="18" Padding="20,20,20,0">          
+                <Entry x:Name="txtTitulo" Placeholder="Title"  Text="{Binding Title}" /> 
+            </StackLayout>        
+            <StackLayout x:Name="stack1" VerticalOptions="FillAndExpand" Padding="20,0,20,0">  
+                
+                
+                <Label x:Name="ButtonLabel" Text="What's in your mind?" TextColor="Black"  IsVisible="True"   />
+
+                <ActivityIndicator Color="DeepSkyBlue" 
+                           IsRunning="False" 
+                           HorizontalOptions="CenterAndExpand" 
+                           VerticalOptions="CenterAndExpand" 
+                           IsVisible="False" 
+                           x:Name="LoadingIndicator" 
+                           Margin="0,20,0,0" />
+                
+                 <Editor x:Name="txtText" Text="{Binding Text}"   Keyboard="Chat"  VerticalOptions="FillAndExpand" 
+               />
+                
+            </StackLayout>  
+            <StackLayout VerticalOptions="End" >
+                <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Button x:Name="btnFoto" Text="OCR" Clicked="OnFoto" BackgroundColor="#2196F3"
+                        BorderWidth="0" TextColor="White"  Image="ocr.png" 
+                    HeightRequest="60" WidthRequest="100"
+                    RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor = .67}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor = 0}"/> 
+                </RelativeLayout>
+            </StackLayout>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

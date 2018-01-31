@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EyePad.View.Note.MainPage"
+             Title="Notes" x:Name="pageNotes">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="ADD" 
+            x:Name="btnAddNote" 
+        Command="{Binding OnAddNoteCMD}" Order="Primary" Priority="1" /> 
+        
+        <ToolbarItem Text="Exit" x:Name="btnSair" 
+        Command="{Binding OnSairCMD}" 
+        Order="Secondary" Priority="1" />
+        
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <Grid Padding="5" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+  
+            <StackLayout x:Name="layNotes" Grid.Row="1" Padding="7">
+
+                <ListView x:Name="lstNotes" ItemsSource="{Binding Notes}"
+                          SelectedItem="{Binding Selecionado, Mode=TwoWay}" RowHeight="55" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell >
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Editar" IsDestructive="False"
+                                              Command="{Binding BindingContext.OnEditarNoteCMD, Source={x:Reference pageNotes}}"
+                                              CommandParameter="{Binding .}" />
+                                   <MenuItem Text="Remover" IsDestructive="True"
+                                              Command="{Binding BindingContext.OnDeleteNoteCMD, Source={x:Reference pageNotes}}" 
+                                              CommandParameter="{Binding .}" />
+                                </ViewCell.ContextActions>
+                                <Grid Padding="5" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="62"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding Title}" LineBreakMode="TailTruncation"  FontAttributes="Bold" TextColor="#2196F3"></Label>
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Date}" LineBreakMode="NoWrap"  Font="Small"  FontAttributes="Italic" TextColor="Gray"></Label>
+                                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding Text}" Font="Small"  TextColor="Black" LineBreakMode="TailTruncation"></Label>
+                                </Grid>
+                                 
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+
+    </ContentPage>
